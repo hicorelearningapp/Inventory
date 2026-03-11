@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime
-from datetime import datetime
 from .sql_base import Base
+from ..utils.timezone import ist_now
 
 
 class Item(Base):
@@ -18,5 +18,5 @@ class Item(Base):
     MinThreshold = Column(Float, nullable=True)
     MaxThreshold = Column(Float, nullable=True)
 
-    CreatedAt = Column(DateTime, default=datetime.utcnow)
-    UpdatedAt = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    CreatedAt = Column(DateTime, default=ist_now)
+    UpdatedAt = Column(DateTime, default=ist_now, onupdate=ist_now)

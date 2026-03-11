@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 from ..db.base.database_manager import DatabaseManager
 from ..utils.stock_calculator import StockCalculatorService
 from ..models.device_model import Device
@@ -10,6 +10,7 @@ from ..schemas.inventory_schema import (
     InventoryRead
 )
 from ..utils.logger import get_logger
+from ..utils.timezone import ist_now
 
 logger = get_logger(__name__)
 
@@ -259,6 +260,7 @@ class InventoryManager:
                     "Category": item.Category,
                     "Description": item.Description,
                     "PerUnitWeight": item.PerUnitWeight,
+                    "Weight": inv.Weight,
 
                     "DeviceId": device.DeviceId if device else None,
                     "DeviceName": device.DeviceName if device else None,
@@ -316,6 +318,7 @@ class InventoryManager:
                     "Category": item.Category,
                     "Description": item.Description,
                     "PerUnitWeight": item.PerUnitWeight,
+                    "Weight": inv.Weight,
 
                     "DeviceId": device.DeviceId if device else None,
                     "DeviceName": device.DeviceName if device else None,
@@ -364,7 +367,7 @@ class WeightTrackingManager:
         data = await self.db.read(WeightTracking, filters)
 
         if filter_by:
-            now = datetime.utcnow()
+            now = ist_now()
             delta = {
                 "day": 1,
                 "week": 7,
@@ -420,7 +423,7 @@ class ActivityLogManager:
         logs = await self.db.read(ActivityLog, {"DeviceId": device_id})
 
         if filter_by:
-            now = datetime.utcnow()
+            now = ist_now()
             delta = {"day": 1, "week": 7, "month": 30}.get(filter_by)
             if delta:
                 logs = [

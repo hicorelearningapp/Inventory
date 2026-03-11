@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, DateTime, String
-from datetime import datetime
 from .sql_base import Base
+from ..utils.timezone import ist_now
 
 
 class Inventory(Base):
@@ -13,8 +13,8 @@ class Inventory(Base):
 
     Weight = Column(Float, nullable=True)
 
-    CreatedAt = Column(DateTime, default=datetime.utcnow)
-    UpdatedAt = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    CreatedAt = Column(DateTime, default=ist_now)
+    UpdatedAt = Column(DateTime, default=ist_now, onupdate=ist_now)
 
 
 
@@ -25,7 +25,7 @@ class WeightTracking(Base):
 
     WeightTrackingId = Column(Integer, primary_key=True, index=True)
     DeviceId = Column(Integer, nullable=False)
-    DateTime = Column(DateTime, default=datetime.utcnow)
+    DateTime = Column(DateTime, default=ist_now)
     Weight = Column(Float, nullable=False)
 
 
@@ -35,7 +35,7 @@ class ActivityLog(Base):
 
     ActivityLogId = Column(Integer, primary_key=True, index=True)
     DeviceId = Column(Integer, nullable=False)
-    DateTime = Column(DateTime, default=datetime.utcnow)
+    DateTime = Column(DateTime, default=ist_now)
     Event = Column(String(255), nullable=False)
 
 

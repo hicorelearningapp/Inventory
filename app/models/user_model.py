@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime
-from datetime import datetime
 from .sql_base import Base
+from ..utils.timezone import ist_now
 
 
 # -------------------------------
@@ -16,5 +16,5 @@ class User(Base):
     PasswordHash = Column(String(255), nullable=False)
     MobileNo = Column(String(20), nullable=True)
 
-    CreatedAt = Column(DateTime, default=datetime.utcnow)
-    UpdatedAt = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    CreatedAt = Column(DateTime, default=ist_now)
+    UpdatedAt = Column(DateTime, default=ist_now, onupdate=ist_now)

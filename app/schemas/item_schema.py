@@ -1,6 +1,7 @@
+from datetime import datetime
 from pydantic import BaseModel
 from typing import Optional
-from datetime import datetime
+from ..utils.timezone import ist_now
 
 
 class ItemBase(BaseModel):
